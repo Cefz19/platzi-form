@@ -101,21 +101,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "platzi-store:build"
+            "buildTarget": "platzi-store:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "platzi-store:build:production"
+              "buildTarget": "platzi-store:build:production"
             },
             "stag": {
-              "browserTarget": "platzi-store:build:stag"
+              "buildTarget": "platzi-store:build:stag"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "platzi-store:build"
+            "buildTarget": "platzi-store:build"
           }
         },
         "test": {
