@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 
 
 @Component({
@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
 
-  nameField = new  FormControl('Im Control');
+  nameField = new  UntypedFormControl('Im Control');
 
   constructor() { }
 
