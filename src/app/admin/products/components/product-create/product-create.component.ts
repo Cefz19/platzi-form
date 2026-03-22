@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { of } from 'rxjs';
 
 import { finalize } from 'rxjs/operators';
 
@@ -13,10 +18,9 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-product-create',
   templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.scss']
+  styleUrls: ['./product-create.component.scss'],
 })
 export class ProductCreateComponent implements OnInit {
-
   form: UntypedFormGroup;
   image$: Observable<any>;
 
@@ -24,43 +28,45 @@ export class ProductCreateComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private productsService: ProductsService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
   ) {
     this.buildForm();
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   saveProduct(event: Event) {
     event.preventDefault();
     if (this.form.valid) {
       const product = this.form.value;
-      this.productsService.createProduct(product)
-      .subscribe((newProduct) => {
+      this.productsService.createProduct(product).subscribe((newProduct) => {
         console.log(newProduct);
         this.router.navigate(['./admin/products']);
       });
     }
   }
 
-  uploadFile(event) {
+  uploadFile(event: any) {
     const file = event.target.files[0];
-    const name = 'image.png';
+    const name = `images/${Date.now()}_${file.name}`;
     const fileRef = this.storage.ref(name);
     const task = this.storage.upload(name, file);
 
-    task.snapshotChanges()
-    .pipe(
-      finalize(() => {
-        this.image$ = fileRef.getDownloadURL();
-        this.image$.subscribe(url => {
-          console.log(url);
-          this.form.get('image').setValue(url);
-        });
-      })
-    )
-    .subscribe();
+    task
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe({
+            next: (url: string) => {
+              console.log('URL:', url);
+              this.form.get('image')?.setValue(url);
+              this.image$ = of(url);
+            },
+            error: (err) => console.error('Error al obtener URL:', err),
+          });
+        }),
+      )
+      .subscribe();
   }
 
   private buildForm() {
@@ -76,5 +82,4 @@ export class ProductCreateComponent implements OnInit {
   get priceField() {
     return this.form.get('price');
   }
-
 }
