@@ -5,13 +5,11 @@
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
-    "downlevelIteration": true,
     "experimentalDecorators": true,
     "module": "es2020",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
-    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "typeRoots": [
       "node_modules/@types"

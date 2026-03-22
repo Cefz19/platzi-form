@@ -7,9 +7,10 @@ import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from './../../../core/services/auth.service';
 
 @Component({
-  selector: 'app-nav',
-  templateUrl: './nav.component.html',
-  styleUrls: ['./nav.component.scss']
+    selector: 'app-nav',
+    templateUrl: './nav.component.html',
+    styleUrls: ['./nav.component.scss'],
+    standalone: false
 })
 export class NavComponent {
 

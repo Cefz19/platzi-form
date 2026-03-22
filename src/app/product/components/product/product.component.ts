@@ -12,9 +12,10 @@ import { Product } from '../../../core/models/product.model';
 import { CartService } from './../../../core/services/cart.service';
 
 @Component({
-  selector: 'app-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss']
+    selector: 'app-product',
+    templateUrl: './product.component.html',
+    styleUrls: ['./product.component.scss'],
+    standalone: false
 })
 export class ProductComponent implements OnInit, OnDestroy {
 

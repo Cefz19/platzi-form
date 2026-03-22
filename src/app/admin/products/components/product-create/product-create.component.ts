@@ -16,9 +16,10 @@ import { ProductsService } from './../../../../core/services/products/products.s
 import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-product-create',
-  templateUrl: './product-create.component.html',
-  styleUrls: ['./product-create.component.scss'],
+    selector: 'app-product-create',
+    templateUrl: './product-create.component.html',
+    styleUrls: ['./product-create.component.scss'],
+    standalone: false
 })
 export class ProductCreateComponent implements OnInit {
   form: UntypedFormGroup;

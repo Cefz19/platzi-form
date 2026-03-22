@@ -5,9 +5,10 @@ import { ProductsService } from './../../../core/services/products/products.serv
 import { Product } from './../../../core/models/product.model';
 
 @Component({
-  selector: 'app-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+    selector: 'app-product-detail',
+    templateUrl: './product-detail.component.html',
+    styleUrls: ['./product-detail.component.scss'],
+    standalone: false
 })
 export class ProductDetailComponent implements OnInit {
 

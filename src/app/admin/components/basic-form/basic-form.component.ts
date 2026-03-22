@@ -3,9 +3,10 @@ import { UntypedFormControl } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-basic-form',
-  templateUrl: './basic-form.component.html',
-  styleUrls: ['./basic-form.component.scss']
+    selector: 'app-basic-form',
+    templateUrl: './basic-form.component.html',
+    styleUrls: ['./basic-form.component.scss'],
+    standalone: false
 })
 export class BasicFormComponent implements OnInit {
 
