@@ -1,11 +1,11 @@
 @use '@angular/material' as mat;
 
-$primary: mat.define-palette(mat.$indigo-palette);
+$primary: mat.$azure-palette;
 
 footer {
   padding: 50px 0px;
   margin-top: 20px;
-  background-color: mat.get-color-from-palette($primary);
+  background-color: var(--mat-sys-primary);
   .box {
     h3 {
       color: white;

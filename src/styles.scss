@@ -3,6 +3,7 @@
 //   margin: 0px;
 //   padding: 0px;
 // }
+@use '@angular/material' as mat;
 
 .product-grid {
   display: grid;
@@ -30,7 +31,16 @@
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  @include mat.theme((
+    color: (
+      primary: mat.$azure-palette,
+      tertiary: mat.$blue-palette,
+    )
+  ))
+ }
 
 img {
   max-width: 100%;

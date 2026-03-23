@@ -1,6 +1,6 @@
 @use '@angular/material' as mat;
 
-$primary: mat-palette($mat-indigo);
+$primary: mat.$azure-palette;
 
 :host {
   height: 100vh;

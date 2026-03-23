@@ -10,7 +10,12 @@ import { UntypedFormControl } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
 
-  nameField = new  UntypedFormControl('Im Control');
+  nameField = new  UntypedFormControl('');
+  emailField = new  UntypedFormControl('');
+  phoneField = new  UntypedFormControl('');
+  colorField = new  UntypedFormControl('#00000');
+  dateField = new  UntypedFormControl('');
+  ageField = new  UntypedFormControl(12);
 
   constructor() { }
 
