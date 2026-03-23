@@ -16,6 +16,18 @@ export class BasicFormComponent implements OnInit {
   colorField = new  UntypedFormControl('#00000');
   dateField = new  UntypedFormControl('');
   ageField = new  UntypedFormControl(12);
+  mountField = new  UntypedFormControl('');
+  rangeField = new  UntypedFormControl('');
+  weekendField = new  UntypedFormControl('');
+  timeField = new  UntypedFormControl('');
+  searchField = new  UntypedFormControl('Pais');
+
+  categoryField = new  UntypedFormControl('category-2');
+  tagField = new  UntypedFormControl('');
+
+  agreeField = new  UntypedFormControl(false);
+  genderField = new  UntypedFormControl('');
+  zoneField = new  UntypedFormControl('');
 
   constructor() { }
 

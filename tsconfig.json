@@ -1,23 +1,24 @@
 {
   "compileOnSave": false,
+  "ignoreDeprecations": "6.0",
   "compilerOptions": {
-    "baseUrl": "./",
+    "rootDir": "./",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
     "esModuleInterop": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "firebase/*": ["./node_modules/firebase/*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2022", "dom"],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
