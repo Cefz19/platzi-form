@@ -1,10 +1,22 @@
 <p>
-    Name: {{ nameField.value }}
+    Name: {{ nameField.value }} {{ nameField.valid }}
     <input type="text" [formControl]="nameField">
-    <button (click)="getNameValue()">Get Value</button>
+    <button [disabled]="nameField.invalid" (click)="getNameValue()">Get Value</button>
     <!-- <code>
         <pre>{{ nameField | json }}</pre>
     </code> -->
+</p>
+
+
+<p>
+    @if(nameField.touched && nameField.hasError('required')){
+        <strong>This is field is required</strong>
+    }
+</p>
+<p>
+    @if(nameField.touched && nameField.hasError('maxlength')){
+        <strong>Debe de ser maximo 10 caracteres</strong>
+    }
 </p>
 
 <p>

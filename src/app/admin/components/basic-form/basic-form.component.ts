@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -10,7 +11,7 @@ import { UntypedFormControl } from '@angular/forms';
 })
 export class BasicFormComponent implements OnInit {
 
-  nameField = new  UntypedFormControl('');
+  nameField = new  UntypedFormControl('',  [Validators.required, Validators.maxLength(10)]);
   emailField = new  UntypedFormControl('');
   phoneField = new  UntypedFormControl('');
   colorField = new  UntypedFormControl('#00000');
