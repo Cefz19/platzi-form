@@ -69,6 +69,10 @@ export class BasicFormComponent implements OnInit {
     return this.form.get('name');
   }
 
+  get emailsField() {
+    return this.form.get('name');
+  }
+
   get phonesField() {
     return this.form.get('name');
   }

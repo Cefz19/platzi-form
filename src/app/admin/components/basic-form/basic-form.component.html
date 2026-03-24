@@ -1,74 +1,74 @@
 <form [formGroup]="form" (ngSubmit)="save()">
     <p>
         <!-- {{ nameField.value }} -->
-        Name: {{ nameField.valid }}
+        Name: {{ namesField.valid }}
         <input [class.is-valid]="isNameFieldValid" [class.is-invalid]="isNameFieldInvalid" type="text"
             formControlName="nameField">
-        <button [disabled]="nameField.invalid" (click)="getNameValue()">Get Value</button>
+        <button [disabled]="namesField.invalid" (click)="getNameValue()">Get Value</button>
         <!-- <code>
         <pre>{{ nameField | json }}</pre>
     </code> -->
     </p>
     <div class="messages" [class.active]="isNameFieldInvalid">
         <p>
-            @if(nameField.touched && nameField.hasError('required')){
+            @if(namesField.touched && namesField.hasError('required')){
             <strong>This is field is required</strong>
             }
         </p>
         <p>
-            @if(nameField.touched && nameField.hasError('maxlength')){
+            @if(namesField.touched && namesField.hasError('maxlength')){
             <strong>Debe de ser maximo 10 caracteres</strong>
             }
         </p>
     </div>
 
     <p>
-        Email: {{ emailField.value }}
+        Email: {{ emailsField.value }}
         <input type="email" [formControl]="emailField">
     </p>
 
     <p>
-        Phone: {{ phoneField.value }}
+        Phone: {{ phonesField.value }}
         <input type="tel" [formControl]="phoneField">
     </p>
 
     <p>
-        Color: {{ colorField.value }}
+        Color: {{ colorsField.value }}
         <input type="color" [formControl]="colorField">
     </p>
 
     <p>
-        Date: {{ dateField.value }}
+        Date: {{ datesField.value }}
         <input type="date" [formControl]="dateField">
     </p>
 
     <p>
-        Age: {{ ageField.value }}
+        Age: {{ agesField.value }}
         <input type="number" [formControl]="ageField">
     </p>
 
     <p>
-        Mounth: {{ mountField.value }}
+        Mounth: {{ mountsField.value }}
         <input type="month" [formControl]="mountField">
     </p>
 
     <p>
-        Range Price: {{ rangeField.value }}
+        Range Price: {{ rangesField.value }}
         <input type="range" [formControl]="rangeField">
     </p>
 
     <p>
-        Weekend: {{ weekendField.value }}
+        Weekend: {{ weekendsField.value }}
         <input type="week" [formControl]="weekendField">
     </p>
 
     <p>
-        Time: {{ timeField.value }}
+        Time: {{ timesField.value }}
         <input type="datetime-local" [formControl]="timeField">
     </p>
 
     <p>
-        Search: {{ searchField.value }}
+        Search: {{ searchsField.value }}
         <input type="search" [formControl]="searchField">
     </p>
 
