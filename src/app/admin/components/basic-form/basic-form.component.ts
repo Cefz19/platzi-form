@@ -1,5 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, Validators, FormGroup } from '@angular/forms';
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  UntypedFormControl,
+  Validators,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-basic-form',
@@ -8,27 +13,29 @@ import { UntypedFormControl, Validators, FormGroup } from '@angular/forms';
   standalone: false,
 })
 export class BasicFormComponent implements OnInit {
-  form = new FormGroup({
-    name: new UntypedFormControl('', [
-      Validators.required,
-      Validators.maxLength(10),
-    ]),
-    email: new UntypedFormControl(''),
-    phone: new UntypedFormControl(''),
-    color: new UntypedFormControl('#00000'),
-    date: new UntypedFormControl(''),
-    age: new UntypedFormControl(12),
-    mount: new UntypedFormControl(''),
-    range: new UntypedFormControl(''),
-    weeken: new UntypedFormControl(''),
-    time: new UntypedFormControl(''),
-    search: new UntypedFormControl('Pais'),
-    category: new UntypedFormControl(''),
-    tag: new UntypedFormControl(''),
-    agree: new UntypedFormControl(''),
-    gender: new UntypedFormControl(''),
-    zone: new UntypedFormControl('Paris'),
-  });
+  form!: FormGroup;
+
+  // form = new FormGroup({
+  //   name: new UntypedFormControl('', [
+  //     Validators.required,
+  //     Validators.maxLength(10),
+  //   ]),
+  //   email: new UntypedFormControl(''),
+  //   phone: new UntypedFormControl(''),
+  //   color: new UntypedFormControl('#00000'),
+  //   date: new UntypedFormControl(''),
+  //   age: new UntypedFormControl(12),
+  //   mount: new UntypedFormControl(''),
+  //   range: new UntypedFormControl(''),
+  //   weekend: new UntypedFormControl(''),
+  //   time: new UntypedFormControl(''),
+  //   search: new UntypedFormControl('Pais'),
+  //   category: new UntypedFormControl(''),
+  //   tag: new UntypedFormControl(''),
+  //   agree: new UntypedFormControl(''),
+  //   gender: new UntypedFormControl(''),
+  //   zone: new UntypedFormControl('Paris'),
+  // });
 
   // nameField = new UntypedFormControl('', [
   //   Validators.required,
@@ -45,81 +52,139 @@ export class BasicFormComponent implements OnInit {
   // timeField = new UntypedFormControl('');
   // searchField = new UntypedFormControl('Pais');
 
-  categoryField = new UntypedFormControl('category-2');
-  tagField = new UntypedFormControl('');
+  // categoryField = new UntypedFormControl('category-2');
+  // tagField = new UntypedFormControl('');
 
-  agreeField = new UntypedFormControl(false);
-  genderField = new UntypedFormControl('');
-  zoneField = new UntypedFormControl('');
+  // agreeField = new UntypedFormControl(false);
+  // genderField = new UntypedFormControl('');
+  // zoneField = new UntypedFormControl('');
 
-  constructor() {}
+  // formBuilder = inject(FormBuilder);
+  constructor(
+    private formBuilder: FormBuilder,
+  ) {
+    this.builderForm();
+  }
 
   ngOnInit(): void {
-    this.namesField.valueChanges.subscribe((value) => {
-      console.log(value);
-    });
+    // this.nameField!.valueChanges.subscribe((value) => {
+    //   console.log(value);
+    // });
+    // this.form.valueChanges
+    // .subscribe((value) => {
+    //   console.log(value);
+    // })
   }
 
   getNameValue() {
-    console.log(this.namesField.value);
+    console.log(this.nameField!.value);
   }
 
-  save() {
-    console.log(this.form.value);
+  save(event: any) {
+    if(this.form.valid){
+      console.log(this.form.value);
+    } else {
+      this.form.markAllAsTouched();
+    }
+    
   }
 
-  get namesField() {
-    return this.form.get('name');
+  private builderForm() {
+    this.form = this.formBuilder.group({
+      fullName: this.formBuilder.group({
+        name: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
+        last: ['', [Validators.required, Validators.maxLength(10), Validators.pattern(/^[a-zA-Z ]+$/)]],
+      }),
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
+      color: ['#00000'],
+      date: [''],
+      age: [12, [Validators.required, Validators.min(18), Validators.max(100)]],
+      mount: [''],
+      range: [''],
+      weekend: [''],
+      time: [''],
+      search: [''],
+      category: [''],
+      tag: [''],
+      agree: [false, [Validators.requiredTrue]],
+      gender: [''],
+      zone: ['Paris'],
+    });
   }
 
-  get emailsField() {
+  get nameField() {
+    return this.form.get('fullName.name');
+  }
+  get lastField() {
+    return this.form.get('fullName.last');
+  }
+
+  get emailField() {
     return this.form.get('email');
   }
 
-  get phonesField() {
+  get phoneField() {
     return this.form.get('phone');
   }
 
-  get colorsField() {
+  get colorField() {
     return this.form.get('color');
   }
 
-  get datesField() {
+  get dateField() {
     return this.form.get('date');
   }
 
-  get agesField() {
+  get ageField() {
     return this.form.get('age');
   }
 
-  get categorysField() {
+  get categoryField() {
     return this.form.get('category');
   }
 
-  get mountsField() {
+  get mountField() {
     return this.form.get('mount');
   }
-  get rangesField() {
+
+  get tagField() {
+    return this.form.get('tag');
+  }
+
+  get rangeField() {
     return this.form.get('range');
   }
 
-  get weekendsField() {
+  get weekendField() {
     return this.form.get('weekend');
   }
 
-  get timesField() {
+  get timeField() {
     return this.form.get('time');
   }
 
-  get searchsField() {
-    return this.form.get('serch');
+  get agreeField() {
+    return this.form.get('agree');
+  }
+
+  get genderField() {
+    return this.form.get('gender');
+  }
+
+  get searchField() {
+    return this.form.get('search');
+  }
+
+  get zoneField() {
+    return this.form.get('zone');
   }
 
   get isNameFieldValid() {
-    return this.namesField.touched && this.namesField.valid;
+    return this.nameField!.touched && this.nameField!.valid;
   }
 
   get isNameFieldInvalid() {
-    return this.namesField.touched && this.namesField.invalid;
+    return this.nameField!.touched && this.nameField!.invalid;
   }
 }
