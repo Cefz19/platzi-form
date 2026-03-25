@@ -3,7 +3,7 @@
         <!-- {{ nameField.value }} -->
         Name: {{ namesField.valid }}
         <input [class.is-valid]="isNameFieldValid" [class.is-invalid]="isNameFieldInvalid" type="text"
-            formControlName="nameField">
+            formControlName="name">
         <button [disabled]="namesField.invalid" (click)="getNameValue()">Get Value</button>
         <!-- <code>
         <pre>{{ nameField | json }}</pre>
@@ -24,52 +24,52 @@
 
     <p>
         Email: {{ emailsField.value }}
-        <input type="email" [formControl]="emailField">
+        <input type="email" formControl="email">
     </p>
 
     <p>
         Phone: {{ phonesField.value }}
-        <input type="tel" [formControl]="phoneField">
+        <input type="tel" formControl="phone">
     </p>
 
     <p>
         Color: {{ colorsField.value }}
-        <input type="color" [formControl]="colorField">
+        <input type="color" formControl="color">
     </p>
 
     <p>
         Date: {{ datesField.value }}
-        <input type="date" [formControl]="dateField">
+        <input type="date" formControl="date">
     </p>
 
     <p>
         Age: {{ agesField.value }}
-        <input type="number" [formControl]="ageField">
+        <input type="number" formControl="age">
     </p>
 
     <p>
         Mounth: {{ mountsField.value }}
-        <input type="month" [formControl]="mountField">
+        <input type="month" formControl="mount">
     </p>
 
     <p>
         Range Price: {{ rangesField.value }}
-        <input type="range" [formControl]="rangeField">
+        <input type="range" formControl="range">
     </p>
 
     <p>
         Weekend: {{ weekendsField.value }}
-        <input type="week" [formControl]="weekendField">
+        <input type="week" formControl="weekend">
     </p>
 
     <p>
         Time: {{ timesField.value }}
-        <input type="datetime-local" [formControl]="timeField">
+        <input type="datetime-local" formControl="time">
     </p>
 
     <p>
         Search: {{ searchsField.value }}
-        <input type="search" [formControl]="searchField">
+        <input type="search" formControl="search">
     </p>
 
     <p>
