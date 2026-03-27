@@ -61,4 +61,10 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
+  uploadFile(event) {
+    const image = event.target.file[0];
+    const name = 'category.png';
+    
+  }
+
 }
