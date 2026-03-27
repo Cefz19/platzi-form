@@ -26,10 +26,12 @@
       </div>
       <div class="row">
         <div class="col-xs">
+          @if(imageField.value){
+            <img [src]="imageField.value" >
+          }
           <input
           (change)="uploadFile($event)"
             placeholder="Image"
-            formControlName="image"
             type="file"
           />
           <div class="messages">
