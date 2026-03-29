@@ -14,23 +14,27 @@
               matInput
               type="text"
             />
-            <div class="messages">
-              @if (nameField.touched && nameField.invalid) {
-                @if (nameField.hasError("required")) {
-                  <mat-error>This is Field required</mat-error>
-                }
-              }
-            </div>
+            <!-- @if (nameField.touched && nameField.invalid) { -->
+            @if (nameField.hasError("required")) {
+              <mat-error>This field is required</mat-error>
+            }
+            @if (nameField.hasError("minlength")) {
+              <mat-error>Min should have 4 chars.</mat-error>
+            }
+            @if (nameField.hasError("not_available")) {
+              <mat-error>This name is already taken</mat-error>
+            }
+            <!-- } -->
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
-          @if(imageField.value){
-            <img [src]="imageField.value" >
+          @if (imageField.value) {
+            <img [src]="imageField.value" />
           }
           <input
-          (change)="uploadFile($event)"
+            (change)="uploadFile($event)"
             placeholder="Image"
             type="file"
           />

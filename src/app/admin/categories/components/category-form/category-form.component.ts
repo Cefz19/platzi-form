@@ -11,6 +11,7 @@ import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 import { CategoriesService } from '../../../../core/services/categories.service';
+import { MyValidators } from '../../../../utils/validators';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class CategoryFormComponent implements OnInit {
 
   private buildForm() {
     this.form = this.formBuilder.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.minLength(4)], MyValidators.validateCategory(this.categoryService)],
       image: ['', Validators.required],
     });
   }
@@ -66,24 +67,38 @@ export class CategoryFormComponent implements OnInit {
     });
   }
 
-  uploadFile(event: any) {
+  uploadFile(event: any){
     const image = event.target.files[0];
-    const name = 'categories/${Date.now()}_category.png';
-    const ref = this.storage.ref(name);
-    const task = this.storage.upload(name, image);
+    if(image) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const localUrl = reader.result as string;
+        console.log('URL Local: ', localUrl);
+        this.imageField?.setValue(localUrl);
+      };
+      reader.readAsDataURL(image);
+    }
 
-    task.snapshotChanges()
-    .pipe(
-      finalize(() => {
-        const urlImage = ref.getDownloadURL();
-        urlImage.subscribe(url => {
-          console.log(url);
-          this.imageField?.setValue(url);
-        })
-      })
-    )
-    .subscribe()
-    
   }
+
+  // uploadFile(event: any) {
+  //   const image = event.target.files[0];
+  //   const name = `categories/${Date.now()}_category.png`;
+  //   const ref = this.storage.ref(name);
+  //   const task = this.storage.upload(name, image);
+
+  //   task.snapshotChanges()
+  //   .pipe(
+  //     finalize(() => {
+  //       const urlImage = ref.getDownloadURL();
+  //       urlImage.subscribe(url => {
+  //         console.log(url);
+  //         this.imageField?.setValue(url);
+  //       })
+  //     })
+  //   )
+  //   .subscribe()
+    
+  // }
 
 }
