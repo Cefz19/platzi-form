@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+
 import {
   // UntypedFormControl,
   Validators,
@@ -13,6 +13,7 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { CategoriesService } from '../../../../core/services/categories.service';
 import { MyValidators } from '../../../../utils/validators';
 import { Observable } from 'rxjs';
+import { Category } from '../../../../core/models/category.model';
 
 @Component({
   selector: 'app-category-form',
@@ -23,27 +24,21 @@ import { Observable } from 'rxjs';
 export class CategoryFormComponent implements OnInit {
   form!: FormGroup;
   image$!: Observable<string>;
-  categoryId!: string;
+  @Input() category: Category | undefined;
+  @Output() create = new EventEmitter();
+  @Output() update = new EventEmitter();
 
   constructor(
     private formBuilder: FormBuilder,
-    private categoryService: CategoriesService,
-    private router: Router,
     private storage: AngularFireStorage,
-    private route: ActivatedRoute,
+    private categoryService: CategoriesService
   ) {
     this.buildForm();
   }
-
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.categoryId = params.id;
-      if (this.categoryId) {
-        this.getCategory();
-      }
-    });
   }
 
+  
   private buildForm() {
     this.form = this.formBuilder.group({
       name: [
@@ -64,20 +59,17 @@ export class CategoryFormComponent implements OnInit {
 
   save() {
     if (this.form.valid) {
-      this.createCategory();
+      if(this.category) {
+        this.update.emit(this.form.value);
+      } else {
+        this.create.emit(this.form.value);
+      }  
     } else {
       this.form.markAllAsTouched();
     }
   }
 
-  private createCategory() {
-    const data = this.form.value;
-    this.categoryService.createCategory(data)
-    .subscribe(rta => {
-      console.log(rta);
-      this.router.navigate(['./admin/categories']);
-    });
-  };
+ 
 
   // private createCategory() {
   //   const data = this.form.value;
@@ -101,24 +93,7 @@ export class CategoryFormComponent implements OnInit {
     // });
   // }
 
-  private updateCategory() {
-    const data = this.form.value;
-    this.categoryService.updateCategory(this.categoryId, data)
-    .subscribe(rta => {
-      console.log(rta);
-      this.router.navigate(['./admin/categories']);
-    });
-  };
-
-  private getCategory() {
-    this.categoryService.getCategory(this.categoryId)
-    .subscribe(data => {
-      console.log(data);
-      this.form.patchValue(data);
-      // this.router.navigate(['./admin/categories']);
-    });
-  }
-
+  
   // uploadFile(event: any) {
   //   const file = event.target.files[0];
   //   if (file) {

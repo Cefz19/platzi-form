@@ -54,7 +54,14 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button type="submit">Save Category</button>
+      <button mat-raised-button type="submit">
+        @if(!category){
+          <span>Create Category</span>
+        }
+        @if(category){
+          <span>Edit Category</span>
+        }
+      </button>
     </mat-card-actions>
   </mat-card>
 
