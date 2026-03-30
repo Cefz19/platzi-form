@@ -23,17 +23,26 @@ export class CategoriesComponent implements OnInit {
 
   private getCategory(){
     this.categoriesServices.getAllCategories()
-    .subscribe(categories => {
-      this.categories = categories;
-
-      if(this.categories.length === 0) {
-        this.categories = [{
-          _id: '1',
-          name: 'Prueba Mock',
-          image: 'https://picsum.photos',
-        }]
+    .subscribe({
+      next: (categories) => {
+        this.categories = categories;
+        if(this.categories.length === 0) {
+          this.setMockData();
+        }
+      }, 
+      error: (error) => {
+        console.log('Error de conexion, cargando mock...', error);
+        this.setMockData();
       }
     })
+  }
+
+  private setMockData() {
+    this.categories = [{
+      _id: '1',
+      name: 'Prueba Mock',
+          image: 'https://picsum.photos',
+    }]
   }
 
 }

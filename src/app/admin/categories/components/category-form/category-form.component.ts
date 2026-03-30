@@ -22,8 +22,8 @@ import { Observable } from 'rxjs';
 })
 export class CategoryFormComponent implements OnInit {
   form!: FormGroup;
-  image$: Observable<string>;
-  categoryId: string;
+  image$!: Observable<string>;
+  categoryId!: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -49,7 +49,7 @@ export class CategoryFormComponent implements OnInit {
       name: [
         '',
         [Validators.required, Validators.minLength(4)],
-        // [MyValidators.validateCategory(this.categoryService)]],
+        [MyValidators.validateCategory(this.categoryService)],
       ],
       image: ['', Validators.required],
     });
@@ -65,32 +65,28 @@ export class CategoryFormComponent implements OnInit {
   save() {
     if (this.form.valid) {
       this.createCategory();
+    } else {
+      this.form.markAllAsTouched();
     }
-    // if(this.form.valid){
-    //   this.createCategory();
-    //   console.log(this.createCategory());
-    // }else {
-    //   this.form.markAllAsTouched();
-    // }
   }
-
-  // private createCategory() {
-  //   const data = this.form.value;
-  //   this.categoryService.createCategory(data)
-  //   .subscribe(rta => {
-  //     console.log(rta);
-  //     this.router.navigate(['./admin/categories']);
-  //   });
-  // };
 
   private createCategory() {
     const data = this.form.value;
-    console.log('Datos listos para enviar al servidor:', data);
+    this.categoryService.createCategory(data)
+    .subscribe(rta => {
+      console.log(rta);
+      this.router.navigate(['./admin/categories']);
+    });
+  };
 
-    setTimeout(() => {
-      console.log('Simulando éxito del servidor...');
-      this.router.navigate(['/admin/categories']); // Asegúrate que la ruta sea exacta
-    }, 500);
+  // private createCategory() {
+  //   const data = this.form.value;
+  //   console.log('Datos listos para enviar al servidor:', data);
+
+  //   setTimeout(() => {
+  //     console.log('Simulando éxito del servidor...');
+  //     this.router.navigate(['/admin/categories']); // Asegúrate que la ruta sea exacta
+  //   }, 500);
 
     // this.categoryService.createCategory(data).subscribe({
     //   next: (rta) => {
@@ -103,46 +99,55 @@ export class CategoryFormComponent implements OnInit {
     // this.router.navigate(['./admin/categories']);
     //   },
     // });
-  }
+  // }
+
+  private updateCategory() {
+    const data = this.form.value;
+    this.categoryService.updateCategory(this.categoryId, data)
+    .subscribe(rta => {
+      console.log(rta);
+      this.router.navigate(['./admin/categories']);
+    });
+  };
 
   private getCategory() {
     this.categoryService.getCategory(this.categoryId)
     .subscribe(data => {
       console.log(data);
-      this.form.patchValue(data)
+      this.form.patchValue(data);
       // this.router.navigate(['./admin/categories']);
     });
   }
 
-  uploadFile(event: any) {
-    const file = event.target.files[0];
-    if (file) {
-      console.log('Simulador loader');
-      const fakeUrl = 'https://placeimg.com';
-
-      this.form.get('image')?.setValue(fakeUrl);
-      console.log('Imagen simulada lista:', fakeUrl);
-      this.form.get('image')?.markAsDirty();
-    }
-  }
-
   // uploadFile(event: any) {
-  //   const image = event.target.files[0];
-  //   const name = `categories/${Date.now()}_${image.name}`;
-  //   const ref = this.storage.ref(name);
-  //   const task = this.storage.upload(name, image);
+  //   const file = event.target.files[0];
+  //   if (file) {
+  //     console.log('Simulador loader');
+  //     const fakeUrl = 'https://placeimg.com';
 
-  //   task.snapshotChanges()
-  //   .pipe(
-  //     finalize(() => {
-  //       const urlImage = ref.getDownloadURL();
-  //       urlImage.subscribe(url => {
-  //         console.log(url);
-  //         this.imageField?.setValue(url);
-  //       })
-  //     })
-  //   )
-  //   .subscribe()
-
+  //     this.form.get('image')?.setValue(fakeUrl);
+  //     console.log('Imagen simulada lista:', fakeUrl);
+  //     this.form.get('image')?.markAsDirty();
+  //   }
   // }
+
+  uploadFile(event: any) {
+    const image = event.target.files[0];
+    const name = `categories/${Date.now()}_${image.name}`;
+    const ref = this.storage.ref(name);
+    const task = this.storage.upload(name, image);
+
+    task.snapshotChanges()
+    .pipe(
+      finalize(() => {
+        const urlImage = ref.getDownloadURL();
+        urlImage.subscribe(url => {
+          console.log(url);
+          this.imageField?.setValue(url);
+        })
+      })
+    )
+    .subscribe()
+
+  }
 }

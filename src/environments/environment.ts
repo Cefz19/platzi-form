@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url_api: 'https://escuelajs.co/api/v1',
+  url_api: 'https://api.escuelajs.co/api/v1',
   firebase: {
     apiKey: 'AIzaSyCN599W6_flBEpe0xrcuBlGPRW3OKzDr7o',
     authDomain: 'platzi-store-forms.firebaseapp.com',

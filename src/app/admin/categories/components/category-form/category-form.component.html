@@ -14,21 +14,19 @@
               matInput
               type="text"
             />
-            <mat-hint *ngIf="nameField?.pending"
-              >Verificando disponibilidad...</mat-hint
-            >
+              <!-- @if(nameField.touched && nameField.invalid) {              } -->
+                <mat-error>
+                  @if(nameField.hasError('required')){
+                    <span>This is field required</span>
+                  }
+                  @if(nameField.hasError('minlength')){
+                    <span>This is field have 4 car...!</span>
+                  }
+                  @if(nameField.hasError('not_available')){
+                    <span>This name already in another field</span>
+                  }
+                </mat-error>
 
-            @if (nameField?.touched && nameField?.invalid) {
-              @if (nameField?.hasError("required")) {
-                <mat-error>Este campo es obligatorio</mat-error>
-              }
-              @if (nameField?.hasError("minlength")) {
-                <mat-error>Mínimo 4 caracteres</mat-error>
-              }
-              @if (nameField?.hasError("not_available")) {
-                <mat-error>Este nombre ya está en uso</mat-error>
-              }
-            }
           </mat-form-field>
         </div>
       </div>
