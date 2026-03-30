@@ -14,22 +14,29 @@
               matInput
               type="text"
             />
-            <!-- @if (nameField.touched && nameField.invalid) { -->
-            @if (nameField.hasError("required")) {
-              <mat-error>This field is required</mat-error>
+            <mat-hint *ngIf="nameField?.pending"
+              >Verificando disponibilidad...</mat-hint
+            >
+
+            @if (nameField?.touched && nameField?.invalid) {
+              @if (nameField?.hasError("required")) {
+                <mat-error>Este campo es obligatorio</mat-error>
+              }
+              @if (nameField?.hasError("minlength")) {
+                <mat-error>Mínimo 4 caracteres</mat-error>
+              }
+              @if (nameField?.hasError("not_available")) {
+                <mat-error>Este nombre ya está en uso</mat-error>
+              }
             }
-            @if (nameField.hasError("minlength")) {
-              <mat-error>Min should have 4 chars.</mat-error>
-            }
-            @if (nameField.hasError("not_available")) {
-              <mat-error>This name is already taken</mat-error>
-            }
-            <!-- } -->
           </mat-form-field>
         </div>
       </div>
       <div class="row">
         <div class="col-xs">
+          <!-- @if (imageField.value | async; as image) {
+            <img [src]="image" />
+          } -->
           @if (imageField.value) {
             <img [src]="imageField.value" />
           }
@@ -52,4 +59,8 @@
       <button mat-raised-button type="submit">Save Category</button>
     </mat-card-actions>
   </mat-card>
+
+  <p>Status: {{ form.status }}</p> 
 </form>
+
+
