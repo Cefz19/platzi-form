@@ -28,18 +28,18 @@ export class CategoriesService {
   updateCategory(id: string, data: Partial<Category>){
     return this.http.put<Category>(`${environment.url_api}/categories/${id}`, data);
   }
-  checkCategory(name: string) {
-    return this.getAllCategories()
-    .pipe(
-      map((categories: Category[]) => {
-        const isAvailable = !categories.some(
-          c => c.name.toLocaleLowerCase() === name.toLocaleLowerCase()
-        );
-        return { isAvailable };
-      })
-    )
-  }
   // checkCategory(name: string) {
-  //   return this.http.post(`${environment.url_api}/categories/availability`, {name})
+  //   return this.getAllCategories()
+  //   .pipe(
+  //     map((categories: Category[]) => {
+  //       const isAvailable = !categories.some(
+  //         c => c.name.toLocaleLowerCase() === name.toLocaleLowerCase()
+  //       );
+  //       return { isAvailable };
+  //     })
+  //   )
   // }
+  checkCategory(name: string) {
+    return this.http.post(`${environment.url_api}/categories/availability`, {name})
+  }
 }

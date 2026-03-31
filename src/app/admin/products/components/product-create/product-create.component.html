@@ -7,14 +7,19 @@
       <div class="row">
         <div class="col-xs">
           <mat-form-field>
-            <input placeholder="Id" formControlName="id" matInput type="text">
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xs">
-          <mat-form-field>
-            <input placeholder="Title" formControlName="title" matInput type="text">
+            <input placeholder="Name" formControlName="name" matInput type="text">
+            @if(nameField.touched && nameField.invalid){
+              <div class="messages">
+                <mat-error>
+                  @if(nameField.hasError('required')){
+                    <span>This field required</span>
+                  }
+                  @if(nameField.hasError('minlength')){
+                    <span>This have minlength 4 car...</span>
+                  }
+                </mat-error>
+              </div>
+            }
           </mat-form-field>
         </div>
       </div>
@@ -40,6 +45,13 @@
         <div class="col-xs">
           <img *ngIf="(image$ | async) as image" [src]="image" alt="">
           <input type="file" (change)="uploadFile($event)">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs">
+          <mat-form-field>
+            <input placeholder="Category ID" formControlName="category_id" matInput type="text">
+          </mat-form-field>
         </div>
       </div>
     </mat-card-content>
