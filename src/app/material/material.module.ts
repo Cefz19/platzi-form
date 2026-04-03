@@ -19,6 +19,8 @@ import { MatMenuModule  } from '@angular/material/menu';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatOption } from '@angular/material/select';
+
 // import { MatDatepickerModule }
 // import { MatNativeDateModule }
 
@@ -44,6 +46,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatPaginatorModule,
     MatFormFieldModule,
     MatStepperModule,
+    MatOption
   ],
   exports: [
     MatButtonModule,
@@ -63,7 +66,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     LayoutModule,
     MatPaginatorModule,
     MatFormFieldModule,
-    MatStepperModule
+    MatStepperModule,
+    MatOption
   ]
 })
 export class MaterialModule { }

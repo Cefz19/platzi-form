@@ -47,10 +47,19 @@
           <input type="file" (change)="uploadFile($event)">
         </div>
       </div>
+
       <div class="row">
         <div class="col-xs">
           <mat-form-field>
-            <input placeholder="Category ID" formControlName="category_id" matInput type="text">
+            <mat-label>Categories</mat-label>
+            <mat-select formControlName="category_id">
+              
+                @for(category of categories; track category._id){
+                  <mat-option [value]="category._id">
+                    {{ category.name }}
+                  </mat-option>
+                }
+            </mat-select>
           </mat-form-field>
         </div>
       </div>

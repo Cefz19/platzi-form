@@ -12,7 +12,7 @@ import { Product } from '../../../../core/models/product.model';
 export class ProductsComponent implements OnInit {
 
   products: Product[] = [];
-  displayedColumns: string[] = ['id', 'name', 'price', 'actions'];
+  displayedColumns: string[] = ['id', 'name','image', 'price', 'actions'];
 
   constructor(
     private productsService: ProductsService
