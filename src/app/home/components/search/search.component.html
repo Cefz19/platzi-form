@@ -1,1 +1,15 @@
-<p>search works!</p>
+<p>
+  <input type="search" [formControl]="searchField" />
+</p>
+<p>
+  Current Value:
+  {{ searchField.value }}
+</p>
+
+<div class="images-grid">
+  @for (result of results; track $index) {
+    <div class="image">
+    <img [src]="result.url" alt="">
+  </div>
+  }
+</div>
